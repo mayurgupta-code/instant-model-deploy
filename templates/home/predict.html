@@ -15,16 +15,16 @@
         <h1 class="display-2 text-white"> 
           Hello {{ request.user.username }}
         </h1>
-        <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-        <a href="#!" class="btn btn-neutral">Edit profile</a>
+        <p class="text-white mt-0 mb-3" >This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+        <a href="#!" class="btn btn-neutral">History</a>
       </div>
     </div>
   </div>
 </div>
 <!-- Page content -->
-<div class="container-fluid mt--6">
+<div class="container-fluid mt--8">
   <div class="row">
-    <div class="col-xl-4 order-xl-2">
+    <!-- <div class="col-xl-4 order-xl-2">
       <div class="card card-profile">
         <img src="/static/assets/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
         <div class="row justify-content-center">
@@ -77,10 +77,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="col-xl-8 order-xl-1">
       <div class="card">
-        <div class="card-header">
+        <!-- <div class="card-header">
           <div class="row align-items-center">
             <div class="col-8">
               <h3 class="mb-0">Edit profile </h3>
@@ -89,12 +89,13 @@
               <a href="#!" class="btn btn-sm btn-primary">Settings</a>
             </div>
           </div>
-        </div>
-        <div class="card-body">
+        </div> -->
+        <div class="card-body" style="padding-bottom: 0;">
           <form>
-            <h6 class="heading-small text-muted mb-4">User information</h6>
+            <h6 class="heading-title text-body mb-4">Type Input Parameter</h6>
+            <hr class="my-4" />
             <div class="pl-lg-4">
-              <div class="row">
+              <div class="column">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Username</label>
@@ -108,7 +109,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="column">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">First name</label>
@@ -125,7 +126,7 @@
             </div>
             <hr class="my-4" />
             <!-- Address -->
-            <h6 class="heading-small text-muted mb-4">Contact information</h6>
+            <!-- <h6 class="heading-small text-muted mb-4">Contact information</h6>
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-md-12">
@@ -155,17 +156,27 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <hr class="my-4" />
+            </div> -->
+            <!-- <hr class="my-4" /> -->
             <!-- Description -->
-            <h6 class="heading-small text-muted mb-4">About me</h6>
+            <!-- <h6 class="heading-small text-muted mb-4">About me</h6>
             <div class="pl-lg-4">
               <div class="form-group">
                 <label class="form-control-label">About Me</label>
                 <textarea rows="4" class="form-control" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
               </div>
-            </div>
+            </div> -->
           </form>
+        </div>
+        <div class="card-header" style="padding-top: 0;">
+          <div class="row align-items-center">
+            <!-- <div class="col-8">
+              <h3 class="mb-0">Edit profile </h3>
+            </div> -->
+            <div class="col-4 text-left">
+              <a href="#!" class="btn btn-lg btn-primary">View Result</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
