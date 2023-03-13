@@ -19,9 +19,10 @@ def model_predict(request, id):
     # get the model
     ml_model = MLModel.objects.get(id=id)
     # get the model inputs
-    ml_model_inputs = MLModelInput.objects.filter(model=ml_model)
+    ml_model_inputs = ml_model.inputs.all()
     context = {
         "ml_model": ml_model,
         "ml_model_inputs": ml_model_inputs
     }
+    print("context", context)
     return render(request, "home/predict.html", {"data": context})    

@@ -11,7 +11,7 @@ from django.db import models
 
 class MLModel(models.Model):
     name = models.CharField(max_length=100)
-    description = models.CharField(max_length=1000, null=True, blank=True)
+    description = models.CharField(max_length=1000, default="", null=True, blank=True)
     # model_file = models.FileField(upload_to='models/')
     accuracy = models.FloatField(default=0.0)
     user = models.ForeignKey('auth.User', on_delete=models.PROTECT)
@@ -34,17 +34,17 @@ class MLModel(models.Model):
 
 class MLModelInput(models.Model):
     INPUT_TYPE_CHOICES = (
-        ('text', 'Text'),
-        ('int', 'Integer'),
-        ('float', 'Float'),
-        ('file', 'File'),
-        ('image', 'Image'),
+        ('text', 'str'),
+        ('checkbox', 'checkbox'),
+        ('number', 'float'),
+        ('file', 'file'),
+        ('image', 'image'),
     )
     name = models.CharField(max_length=100)
-    attribute = models.CharField(max_length=100, default='')
+    attribute = models.CharField(max_length=100, default='', null=True, blank=True)
     description = models.CharField(max_length=1000, null=True, blank=True)
-    input_type = models.CharField(max_length=100)
-    model = models.ForeignKey(MLModel, on_delete=models.CASCADE)
+    input_type = models.CharField(max_length=100, choices=INPUT_TYPE_CHOICES, default='float')
+    model = models.ForeignKey(MLModel, on_delete=models.CASCADE, related_name='inputs')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
