@@ -60,7 +60,9 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Model ID : {{ model.id }}</h5>
+                      <a href="{% url 'home:model_predict' id=model.id %}">
                       <span class="h2 font-weight-bold mb-0">{{ model.name }}</span>
+                      </a>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -126,7 +128,7 @@
     </div>
 
     <!-- Page content -->
-    <div class="container-fluid mt--6">
+    {% comment %} <div class="container-fluid mt--6">
       <div class="row">
         <div class="col-xl-8">
           <div class="card bg-default">
@@ -404,7 +406,7 @@
 
       {% include "includes/footer.html" %}
 
-    </div>
+    </div> {% endcomment %}
 
 {% endblock content %}
 

@@ -12,3 +12,16 @@ def home(request):
         "ml_models": ml_models
     }
     return render(request, "home/index.html", {"data": context})
+
+
+def model_predict(request, id):
+    print("model_id", id)
+    # get the model
+    ml_model = MLModel.objects.get(id=id)
+    # get the model inputs
+    ml_model_inputs = MLModelInput.objects.filter(model=ml_model)
+    context = {
+        "ml_model": ml_model,
+        "ml_model_inputs": ml_model_inputs
+    }
+    return render(request, "home/predict.html", {"data": context})    
