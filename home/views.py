@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 # import login required decorator
 from django.contrib.auth.decorators import login_required
 from .models import MLModel, MLModelInput
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 @login_required(login_url="/auth/login/")
@@ -15,7 +16,7 @@ def home(request):
 
 
 def model_predict(request, id):
-    print("model_id", id)
+    # print("model_id", id)
     # get the model
     ml_model = MLModel.objects.get(id=id)
     # get the model inputs
@@ -24,5 +25,11 @@ def model_predict(request, id):
         "ml_model": ml_model,
         "ml_model_inputs": ml_model_inputs
     }
-    print("context", context)
-    return render(request, "home/predict.html", {"data": context})    
+    # print("context", context)
+    return render(request, "home/predict.html", {"data": context})
+
+@csrf_exempt
+def get_predict_result(request, id):
+    if request.method == "POST":
+        print("request.POST", request.POST)
+        return redirect("home:model_predict", id=id)        
