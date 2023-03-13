@@ -29,9 +29,9 @@
           </div> -->
           <!-- Card stats -->
           <div class="row">
-            <div class="col-xl-3 col-md-6">
+            <!-- ModelCard -->
+            <!-- <div class="col-xl-3 col-md-6">
               <div class="card card-stats">
-                <!-- Card body -->
                 <div class="card-body" style="height: 200px;">
                   <div class="row">
                     <div class="col">
@@ -50,29 +50,32 @@
                   </p>
                 </div>
               </div>
-            </div>
+            </div> -->
+            
+            {% for model in data.ml_models %}
+            {% comment %} {{model}} {% endcomment %}
             <div class="col-xl-3 col-md-6">
               <div class="card card-stats">
-                <!-- Card body -->
                 <div class="card-body" style="height: 200px;">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Model ID : 5649</h5>
-                      <span class="h2 font-weight-bold mb-0">Real Estate Price Prediction</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Model ID : {{ model.id }}</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ model.name }}</span>
                     </div>
                     <div class="col-auto">
-                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                        <i class="ni ni-chart-pie-35"></i>
+                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                        <i class="ni ni-active-40"></i>
                       </div>
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 92%</span>
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ model.accuracy }}%</span>
                     <span class="text-nowrap">Accuracy</span>
                   </p>
                 </div>
               </div>
             </div>
+            {% endfor %}
             <div class="col-xl-3 col-md-6">
               <div class="card card-stats">
                 <!-- Card body -->
