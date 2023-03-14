@@ -68,3 +68,6 @@ def get_predict_result(request, id):
         # data = {'message': 'Hello, world!'}
         json_content = json.dumps(data)
         return HttpResponse(json_content, content_type='application/json; charset=utf-8')  
+    
+def upload_model(request):
+    return render(request, "home/upload_model.html")
