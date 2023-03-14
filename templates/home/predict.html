@@ -92,7 +92,7 @@
             </div>
           </div>
         </div> -->
-        <div class="card-body" style="padding-bottom: 0">
+        <div class="card-body">
           <form
             method="post"
             action="{% url 'home:get_predict_result' id=data.ml_model.id %}"
@@ -143,17 +143,12 @@
               </div>
             </div>
             <hr class="my-4" />
-            <button type="submit" id="predict-result">View result</button>
+            <button type="submit" class="btn btn-lg btn-primary">View result</button>
           </form>
-        </div>
-        <div class="card-header" style="padding-top: 0">
-          <div class="row align-items-center">
-            <!-- <div class="col-8">
-              <h3 class="mb-0">Edit profile </h3>
-            </div> -->
-            <div class="col-4 text-left">
-              <a href="#!" class="btn btn-lg btn-primary">View Result</a>
-            </div>
+          <hr class="my-4" />
+          <div style="background-color: #30bb7a; padding: 10px 15px 5px 15px; border-radius: 5px;" >
+            <h6 class="heading-title text-body mb-2" style="color: white !important;" >Prediction Success : </h6>
+            <h2 class="heading-title text-body mb-2" style="font-size: 40px; color: white !important;"> Salary : 22000 </h2>
           </div>
         </div>
       </div>
