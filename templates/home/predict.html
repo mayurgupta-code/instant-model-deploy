@@ -143,7 +143,7 @@
               </div>
             </div>
             <hr class="my-4" />
-            <button type="submit">View result</button>
+            <button type="submit" id="predict-result">View result</button>
           </form>
         </div>
         <div class="card-header" style="padding-top: 0">
@@ -172,5 +172,8 @@
     // Scroll down by 20 pixels
     window.scrollBy(0, 200);
   };
+</script>
+<script>
+  const submitBtn = document.getElementById("predict-result")
 </script>
 {% endblock javascripts %}
