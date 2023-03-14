@@ -160,7 +160,9 @@
               background-color: #30bb7a;
               padding: 10px 15px 5px 15px;
               border-radius: 5px;
+              display: none;
             "
+            id="prediction-result"
           >
             <h6
               class="heading-title text-body mb-2"
@@ -172,7 +174,7 @@
               class="heading-title text-body mb-2"
               style="font-size: 40px; color: white !important"
             >
-              Salary : 22000
+              {{data.ml_model.output}} : <span id="output-predict-result">22000</span>
             </h2>
           </div>
         </div>
@@ -227,6 +229,17 @@
       .then((response) => {
         // Handle the response from the server here
         console.log(response);
+        predictBtn.innerHTML = "Processing result...";
+        setTimeout(function() {
+          // console.log("Hello");
+          let predictionResultDiv = document.getElementById("prediction-result");
+          predictionResultDiv.style.display = "block";
+          predictBtn.innerHTML = "Predict again";
+          let outputPredictResult = document.getElementById("output-predict-result");
+          outputPredictResult.innerHTML = response.data.result;
+          window.scrollTo(0, document.body.scrollHeight);
+        }, 3000);
+        
       })
       .catch((error) => {
         // Handle any errors that occur during the request here

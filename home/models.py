@@ -18,6 +18,7 @@ class MLModel(models.Model):
     description = models.CharField(max_length=1000, default="", null=True, blank=True)
     model_file = models.FileField(upload_to=user_directory_path, null=True, blank=True)
     accuracy = models.FloatField(default=0.0)
+    output = models.CharField(max_length=100, default="", null=True, blank=True)
     user = models.ForeignKey('auth.User', on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
