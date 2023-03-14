@@ -187,6 +187,22 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username"
+                      >Type of 1st input :</label
+                    >
+                    <select name="pets" id="pet-select">
+                      <option value="">--Please choose an option--</option>
+                      <option value="dog">Integer</option>
+                      <option value="cat">Float</option>
+                      <option value="hamster">File</option>
+                      <option value="parrot">Image</option>
+                      
+                  </select>
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username"
                       >Name of 2nd Input :</label
                     >
                     <input
@@ -201,6 +217,22 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username"
+                      >Type of 2nd input :</label
+                    >
+                    <input
+                      type="text"
+                      id="input-username"
+                      list="options"
+                      class="form-control"
+                      placeholder="Username"
+                      value="{{ request.user.username }}"
+                    />
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username"
                       >Name of 3rd Input :</label
                     >
                     <input
@@ -210,6 +242,22 @@
                       placeholder="Username"
                       value="{{ request.user.username }}"
                     />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username"
+                      >Type of 3rd input :</label
+                    >
+                    <input
+                      type="text"
+                      id="input-username"
+                      list="options"
+                      class="form-control"
+                      placeholder="Username"
+                      value="{{ request.user.username }}"
+                    />
+
                   </div>
                 </div>
 
