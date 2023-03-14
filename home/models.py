@@ -9,10 +9,14 @@ from django.db import models
 # updated_at: the time when the model is updated
 # accuracy: the accuracy of the model
 
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'user_{0}/{1}'.format(instance.user.id, filename)
+
 class MLModel(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=1000, default="", null=True, blank=True)
-    # model_file = models.FileField(upload_to='models/')
+    model_file = models.FileField(upload_to=user_directory_path, null=True, blank=True)
     accuracy = models.FloatField(default=0.0)
     user = models.ForeignKey('auth.User', on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
