@@ -16,7 +16,13 @@
   <div class="container-fluid d-flex align-items-center">
     <div class="row" style="width: 100%">
       <div class="col-lg-7 col-md-10">
-        <h1 class="display-2 text-white">{{data.ml_model.name}}</h1>
+        <h1
+          class="display-2 text-white"
+          id="data-model-id"
+          data-modelid="{{data.ml_model.id}}"
+        >
+          {{data.ml_model.name}}
+        </h1>
         <p class="text-white mt-0 mb-3">{{data.ml_model.description}}</p>
         <a href="#!" class="btn btn-neutral">History</a>
       </div>
@@ -93,10 +99,7 @@
           </div>
         </div> -->
         <div class="card-body">
-          <form
-            method="post"
-            action="{% url 'home:get_predict_result' id=data.ml_model.id %}"
-          >
+          <form>
             {% csrf_token %}
             <h6 class="heading-title text-body mb-4">Type Input Parameter</h6>
             <hr class="my-4" />
@@ -126,10 +129,10 @@
                     <input
                       type="{{input.input_type}}"
                       id="{{input.id}}"
-                      class="form-control"
+                      class="form-control input-value"
                       placeholder="{{input.attribute}}"
                       name="{{input.attribute}}"
-                      step=0.01
+                      step="0.01"
                     />
                   </div>
                 </div>
@@ -143,12 +146,34 @@
               </div>
             </div>
             <hr class="my-4" />
-            <button type="submit" class="btn btn-lg btn-primary" id="predict-result-btn">View result</button>
+            <button
+              type="button"
+              class="btn btn-lg btn-primary"
+              id="predict-result-btn"
+            >
+              View result
+            </button>
           </form>
           <hr class="my-4" />
-          <div style="background-color: #30bb7a; padding: 10px 15px 5px 15px; border-radius: 5px;" >
-            <h6 class="heading-title text-body mb-2" style="color: white !important;" >Prediction Success : </h6>
-            <h2 class="heading-title text-body mb-2" style="font-size: 40px; color: white !important;"> Salary : 22000 </h2>
+          <div
+            style="
+              background-color: #30bb7a;
+              padding: 10px 15px 5px 15px;
+              border-radius: 5px;
+            "
+          >
+            <h6
+              class="heading-title text-body mb-2"
+              style="color: white !important"
+            >
+              Prediction Success :
+            </h6>
+            <h2
+              class="heading-title text-body mb-2"
+              style="font-size: 40px; color: white !important"
+            >
+              Salary : 22000
+            </h2>
           </div>
         </div>
       </div>
@@ -169,6 +194,44 @@
   };
 </script>
 <script>
-  const submitBtn = document.getElementById("predict-result-btn")
+  const predictBtn = document.getElementById("predict-result-btn");
+  const model_id = document.getElementById("data-model-id");
+  const id = model_id.dataset.modelid;
+
+  predictBtn.addEventListener("click", () => {
+    // axios
+    //   .post(`http://127.0.0.1:8000/model/predict/result/${id}`)
+    //   .then((response) => {
+    //     // Handle the response from the server here
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     // Handle any errors that occur during the request here
+    //     console.error(error);
+    //   });
+
+    let inputValues = document.querySelectorAll(".input-value");
+    let inputValuesArray = [];
+    for (let i = 0; i < inputValues.length; i++) {
+      inputValuesArray.push(inputValues[i].value);
+    }
+    console.log(inputValuesArray);
+
+    axios({
+      method: "post",
+      url: `http://127.0.0.1:8000/model/predict/result/${id}`,
+      data: {
+        inputValues: inputValuesArray,
+      },
+    })
+      .then((response) => {
+        // Handle the response from the server here
+        console.log(response);
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the request here
+        console.error(error);
+      });
+  });
 </script>
 {% endblock javascripts %}

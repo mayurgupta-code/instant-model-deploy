@@ -32,10 +32,13 @@ def model_predict(request, id):
     # print("context", context)
     return render(request, "home/predict.html", {"data": context})
 
-
+@csrf_exempt
 def get_predict_result(request, id):
     if request.method == "POST":
-        print("request.POST", request.POST)
+        data = json.loads(request.body.decode('utf-8'))
+        input_data_str = data.get('inputValues')
+        input_data = [int(x) for x in input_data_str] 
+        print("data", input_data)
         # print("model_id", id)
         # get the model
         ml_model = MLModel.objects.get(id=id)
@@ -50,7 +53,7 @@ def get_predict_result(request, id):
         # print("data", data)
         data_dict = request.POST.dict()
         print("data_dict", data_dict)
-        data_dict.pop('csrfmiddlewaretoken')
+        # data_dict.pop('csrfmiddlewaretoken')
         
         data_arr = []
         for key, value in data_dict.items():
@@ -58,7 +61,7 @@ def get_predict_result(request, id):
         # print("data_arr", data_arr)   
         # print(type(data_arr[0])) 
 
-        ml_result = pickled_model.predict([data_arr])
+        ml_result = pickled_model.predict([input_data])
         print("ml_result", ml_result)
         data = {
             "result": ml_result[0],
