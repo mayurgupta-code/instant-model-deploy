@@ -37,7 +37,8 @@ def get_predict_result(request, id):
     if request.method == "POST":
         data = json.loads(request.body.decode('utf-8'))
         input_data_str = data.get('inputValues')
-        input_data = [int(x) for x in input_data_str] 
+        print("input_data_str", input_data_str)
+        input_data = [float(x) for x in input_data_str] 
         print("data", input_data)
         # print("model_id", id)
         # get the model
@@ -63,11 +64,19 @@ def get_predict_result(request, id):
 
         ml_result = pickled_model.predict([input_data])
         print("ml_result", ml_result)
+        print("type(ml_result[0])", type(ml_result[0]))
+        
         data = {
             "result": ml_result[0],
             "message": "Predict result successfuly!"
             }
-
+        if type(ml_result[0]) != int:
+            # print("here")
+            ml_result = str(ml_result[0])
+            # print("ml_result", ml_result)
+            data = {
+                "result": ml_result,
+            }
         # data = {'message': 'Hello, world!'}
         json_content = json.dumps(data)
         return HttpResponse(json_content, content_type='application/json; charset=utf-8')  
@@ -94,6 +103,6 @@ def upload_model(request):
                 model=ml_model
             )
             ml_model_input.save()
-            
+
         
     return render(request, "home/upload_model.html")
