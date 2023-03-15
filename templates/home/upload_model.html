@@ -1,30 +1,8 @@
 {% extends 'layouts/base.html' %} {% block title %} Profile {% endblock title %}
 {% block content %}
 
-<div
-  class="header pb-6 d-flex align-items-center"
-  style="
-    min-height: 500px;
-    background-image: url(/static/assets/img/theme/profile-cover.jpg);
-    background-size: cover;
-    background-position: center top;
-  "
->
-  <!-- Mask -->
-  <span class="mask bg-gradient-default opacity-8"></span>
-  <!-- Header container -->
-  <div class="container-fluid d-flex align-items-center">
-    <div class="row" style="width: 100%">
-      <div class="col-lg-7 col-md-10">
-        <h1 class="display-2 text-white">{{data.ml_model.name}</h1>
-        <p class="text-white mt-0 mb-3">{{data.ml_model.description}</p>
-        <a href="#!" class="btn btn-neutral">History</a>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- Page content -->
-<div class="container-fluid mt--8">
+<div class="container-fluid mt-4">
   <div class="row">
     <!-- <div class="col-xl-4 order-xl-2">
       <div class="card card-profile">
@@ -95,12 +73,16 @@
         <div class="card-body">
           <form method="post">
             {% csrf_token %}
-            <h6 class="heading-title text-body mb-4">Type Input Parameter</h6>
+            <h6 class="heading-title text-body mb-4">
+              Instant Model Deployment
+            </h6>
             <hr class="my-4" />
             <div class="pl-lg-4">
               <div class="column" style="margin-bottom: 30px">
-                <label for="myfile" style="margin-right: 20px;" >Upload your ML Model: </label>
-                <input type="file" id="myfile" name="myfile"  />
+                <label for="myfile" style="margin-right: 20px"
+                  >Upload your ML Model:
+                </label>
+                <input type="file" id="myfile" name="myfile" />
               </div>
               <div class="row">
                 <div class="col-lg-6">
@@ -112,23 +94,23 @@
                       type=""
                       id="input-username"
                       class="form-control"
-                      placeholder="Username"
-                      value="{{ request.user.username }}"
+                      placeholder="Enter model name"
+                      value=""
                     />
                   </div>
                 </div>
 
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="{{input.id}"
+                    <label class="form-control-label" for="input-accuracy"
                       >Accuracy</label
                     >
                     <input
-                      type="{{input.input_type}}"
-                      id="{{input.id}}"
+                      type="number"
+                      id="input-accuracy"
                       class="form-control"
-                      placeholder="{{input.attribute}}"
-                      name="{{input.attribute}}"
+                      placeholder="Enter accuracy"
+                      name="accuracy"
                       step="0.01"
                     />
                   </div>
@@ -136,15 +118,15 @@
 
                 <div class="col-lg-12">
                   <div class="form-group">
-                    <label class="form-control-label" for="{{input.id}"
+                    <label class="form-control-label" for="input-desc"
                       >Description</label
                     >
                     <input
-                      type="{{input.input_type}}"
-                      id="{{input.id}}"
+                      type="text"
+                      id="input-desc"
                       class="form-control"
-                      placeholder="{{input.attribute}}"
-                      name="{{input.attribute}}"
+                      placeholder="Write your model description here"
+                      name="desc"
                       step="0.01"
                     />
                   </div>
@@ -152,123 +134,56 @@
 
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="{{input.id}"
+                    <label class="form-control-label" for="input-numbers"
                       >No. of inputs</label
                     >
                     <input
                       type="number"
-                      id="{{input.id}}"
+                      id="input-numbers"
                       class="form-control"
-                      placeholder="{{input.attribute}}"
-                      name="{{input.attribute}}"
+                      placeholder="Number of X attributes"
+                      name="input_numbers"
                     />
                   </div>
                 </div>
                 <div class="col-lg-6" style="align-self: center">
-                  <button type="submit" class="btn btn-sm btn-primary">
+                  <button type="button" class="btn btn-sm btn-primary" onclick="generateInputs()">
                     Generate
                   </button>
                 </div>
 
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-username"
-                      >Name of 1st Input :</label
-                    >
-                    <input
-                      type=""
-                      id="input-username"
-                      class="form-control"
-                      placeholder="Username"
-                      value="{{ request.user.username }}"
-                    />
-                  </div>
+                <div id="final-generated-inputs">
+                  <!-- <div class="row generated-inputs">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                          >Name of 1st Input :</label
+                        >
+                        <input
+                          type=""
+                          id="input-username"
+                          class="form-control"
+                          placeholder=""
+                          value=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                          >Type of 1st input :</label
+                        >
+                        <select name="pets" id="pet-select">
+                          <option value="">--Please choose an option--</option>
+                          <option value="number">Integer</option>
+                          <option value="number">Float</option>
+                          <option value="file">File</option>
+                          <option value="image">Image</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div> -->
                 </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-username"
-                      >Type of 1st input :</label
-                    >
-                    <select name="pets" id="pet-select">
-                      <option value="">--Please choose an option--</option>
-                      <option value="dog">Integer</option>
-                      <option value="cat">Float</option>
-                      <option value="hamster">File</option>
-                      <option value="parrot">Image</option>
-                      
-                  </select>
-
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-username"
-                      >Name of 2nd Input :</label
-                    >
-                    <input
-                      type=""
-                      id="input-username"
-                      class="form-control"
-                      placeholder="Username"
-                      value="{{ request.user.username }}"
-                    />
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-username"
-                      >Type of 2nd input :</label
-                    >
-                    <input
-                      type="text"
-                      id="input-username"
-                      list="options"
-                      class="form-control"
-                      placeholder="Username"
-                      value="{{ request.user.username }}"
-                    />
-
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-username"
-                      >Name of 3rd Input :</label
-                    >
-                    <input
-                      type=""
-                      id="input-username"
-                      class="form-control"
-                      placeholder="Username"
-                      value="{{ request.user.username }}"
-                    />
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-username"
-                      >Type of 3rd input :</label
-                    >
-                    <input
-                      type="text"
-                      id="input-username"
-                      list="options"
-                      class="form-control"
-                      placeholder="Username"
-                      value="{{ request.user.username }}"
-                    />
-
-                  </div>
-                </div>
-
-                <!-- <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-email">Email address</label>
-                    <input type="email" id="input-email" class="form-control" placeholder="{{ request.user.email }}">
-                  </div>
-                </div> -->
-
-                
               </div>
               <div class="row">
                 <div class="col-lg-6">
@@ -277,18 +192,20 @@
                       >Output Name</label
                     >
                     <input
-                      type=""
-                      id="input-username"
+                      type="text"
+                      id="input-output-name"
                       class="form-control"
-                      placeholder="Username"
-                      value="{{ request.user.username }}"
+                      placeholder="Enter output name"
+                      value=""
                     />
                   </div>
                 </div>
               </div>
             </div>
             <hr class="my-4" />
-            <button type="submit" class="btn btn-lg btn-primary">Upload ML Model</button>
+            <button type="submit" class="btn btn-lg btn-primary">
+              Upload ML Model
+            </button>
           </form>
         </div>
       </div>
@@ -307,5 +224,53 @@
     // Scroll down by 20 pixels
     window.scrollBy(0, 200);
   };
+</script>
+<script>
+  let generateInputs = function(){
+    console.log("clickedd")
+    const generatedInputDiv = document.getElementsByClassName("generated-inputs")
+    console.log(generatedInputDiv) 
+    let inputNumbers = document.getElementById("input-numbers").value
+    console.log(inputNumbers)
+
+    
+    let finalGenInputs = ``;              
+    for (let i=1; i<=inputNumbers; i++){
+      let inputStr = `<div class="row generated-inputs">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                          >Name of Input ${i}:</label
+                        >
+                        <input
+                          type=""
+                          id=""
+                          class="form-control"
+                          placeholder=""
+                          value=""
+                          name="input-type"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                          >Type of input ${i}:</label
+                        >
+                        <select name="inputs-name" id="inputs-select">
+                          <option value="">--Please choose an option--</option>
+                          <option value="number">Integer</option>
+                          <option value="number">Float</option>
+                          <option value="file">File</option>
+                          <option value="image">Image</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>`;
+          finalGenInputs += inputStr;        
+    }
+    let finalGenInputsDiv = document.getElementById("final-generated-inputs")
+    finalGenInputsDiv.innerHTML = finalGenInputs;
+  }
 </script>
 {% endblock javascripts %}
