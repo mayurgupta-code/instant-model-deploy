@@ -42,6 +42,7 @@ class MLModelInput(models.Model):
         ('text', 'str'),
         ('checkbox', 'checkbox'),
         ('number', 'float'),
+        ('number', 'int'),
         ('file', 'file'),
         ('image', 'image'),
     )

@@ -73,4 +73,27 @@ def get_predict_result(request, id):
         return HttpResponse(json_content, content_type='application/json; charset=utf-8')  
     
 def upload_model(request):
+    if request.method == "POST":
+        print("request.POST", request.POST.dict())
+        data_dict = request.POST.dict()
+        data_dict.pop('csrfmiddlewaretoken')
+        ml_model = MLModel(
+            name=data_dict.get('model_name'),
+            description=data_dict.get('model_desc'),
+            model_file=data_dict.get('model_file'),
+            accuracy=data_dict.get('accuracy'),
+            output=data_dict.get('model_output_name'),
+            user=request.user,
+        )
+        ml_model.save()
+        # get the model inputs
+        for i in range(1, int(data_dict.get('input_count'))+1):
+            ml_model_input = MLModelInput(
+                name=data_dict.get('input-name-'+str(i)),
+                input_type=data_dict.get('input-type-'+str(i)),
+                model=ml_model
+            )
+            ml_model_input.save()
+            
+        
     return render(request, "home/upload_model.html")

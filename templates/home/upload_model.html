@@ -71,7 +71,7 @@
           </div>
         </div> -->
         <div class="card-body">
-          <form method="post">
+          <form method="post" action="{% url 'home:model_upload' %}">
             {% csrf_token %}
             <h6 class="heading-title text-body mb-4">
               Instant Model Deployment
@@ -82,7 +82,7 @@
                 <label for="myfile" style="margin-right: 20px"
                   >Upload your ML Model:
                 </label>
-                <input type="file" id="myfile" name="myfile" />
+                <input type="file" id="model_file" name="model_file" />
               </div>
               <div class="row">
                 <div class="col-lg-6">
@@ -96,6 +96,7 @@
                       class="form-control"
                       placeholder="Enter model name"
                       value=""
+                      name="model_name"
                     />
                   </div>
                 </div>
@@ -126,7 +127,7 @@
                       id="input-desc"
                       class="form-control"
                       placeholder="Write your model description here"
-                      name="desc"
+                      name="model_desc"
                       step="0.01"
                     />
                   </div>
@@ -142,7 +143,7 @@
                       id="input-numbers"
                       class="form-control"
                       placeholder="Number of X attributes"
-                      name="input_numbers"
+                      name="input_count"
                     />
                   </div>
                 </div>
@@ -197,6 +198,7 @@
                       class="form-control"
                       placeholder="Enter output name"
                       value=""
+                      name="model_output_name"
                     />
                   </div>
                 </div>
@@ -239,28 +241,29 @@
       let inputStr = `<div class="row generated-inputs">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username"
+                        <label class="form-control-label" for="input-name"
                           >Name of Input ${i}:</label
                         >
                         <input
-                          type=""
-                          id=""
+                          type="text"
+                          id="input-name-${i}"
                           class="form-control"
                           placeholder=""
                           value=""
-                          name="input-type"
+                          name="input-name-${i}"
                         />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username"
+                        <label class="form-control-label" for="input-type"
                           >Type of input ${i}:</label
                         >
-                        <select name="inputs-name" id="inputs-select">
+                        <select name="input-type-${i}" id="inputs-select-${i}">
                           <option value="">--Please choose an option--</option>
                           <option value="number">Integer</option>
                           <option value="number">Float</option>
+                          <option value="text">String</option>
                           <option value="file">File</option>
                           <option value="image">Image</option>
                         </select>
