@@ -74,17 +74,17 @@
           <form method="post" action="{% url 'home:model_upload' %}">
             {% csrf_token %}
             <h6 class="heading-title text-body mb-4">
-              Instant Model Deployment
+              Upload Dataset
             </h6>
             <hr class="my-4" />
             <div class="pl-lg-4">
               <div class="column" style="margin-bottom: 30px">
                 <label for="myfile" style="margin-right: 20px"
-                  >Upload your ML Model:
+                  >Upload CSV or excel file:
                 </label>
                 <input type="file" id="model_file" name="model_file" />
               </div>
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username"
@@ -154,7 +154,7 @@
                 </div>
 
                 <div id="final-generated-inputs">
-                  <!-- <div class="row generated-inputs">
+                   <div class="row generated-inputs">
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username"
@@ -183,7 +183,7 @@
                         </select>
                       </div>
                     </div>
-                  </div> -->
+                  </div> 
                 </div>
               </div>
               <div class="row">
@@ -202,11 +202,11 @@
                     />
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <hr class="my-4" />
             <button type="submit" class="btn btn-lg btn-primary">
-              Upload ML Model
+              Upload Data
             </button>
           </form>
         </div>
