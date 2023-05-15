@@ -71,7 +71,7 @@
           </div>
         </div> -->
         <div class="card-body">
-          <form method="post" action="{% url 'home:model_upload' %}">
+          <form method="post" action="{% url 'home:model_upload' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <h6 class="heading-title text-body mb-4">
               Instant Model Deployment
@@ -79,7 +79,7 @@
             <hr class="my-4" />
             <div class="pl-lg-4">
               <div class="column" style="margin-bottom: 30px">
-                <label for="myfile" style="margin-right: 20px"
+                <label for="model_file" style="margin-right: 20px"
                   >Upload your ML Model:
                 </label>
                 <input type="file" id="model_file" name="model_file" />

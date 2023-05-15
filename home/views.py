@@ -71,12 +71,15 @@ def get_predict_result(request, id):
 def upload_model(request):
     if request.method == "POST":
         print("request.POST", request.POST.dict())
+        print("request.FILES", request.FILES)
+        model_file = request.FILES.get('model_file')
+        # print(model_file)
         data_dict = request.POST.dict()
         data_dict.pop('csrfmiddlewaretoken')
         ml_model = MLModel(
             name=data_dict.get('model_name'),
             description=data_dict.get('model_desc'),
-            model_file=data_dict.get('model_file'),
+            model_file=model_file,
             accuracy=data_dict.get('accuracy'),
             output=data_dict.get('model_output_name'),
             user=request.user,
