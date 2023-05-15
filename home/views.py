@@ -47,20 +47,7 @@ def get_predict_result(request, id):
         # pickle the model
         model_file = ml_model.model_file
         pickled_model = pickle.load(open(model_file.path, 'rb'))
-        # print("pickled_model", pickled_model)
-
-        # get data from the request and predict
-        # data = request.POST.get_list()
-        # print("data", data)
-        # data_dict = request.POST.dict()
-        # print("data_dict", data_dict)
-        # data_dict.pop('csrfmiddlewaretoken')
         
-        # data_arr = []
-        # for key, value in data_dict.items():
-        #     data_arr.append(float(value))
-        # print("data_arr", data_arr)   
-        # print(type(data_arr[0])) 
 
         ml_result = pickled_model.predict([input_data])
         print("ml_result", ml_result)

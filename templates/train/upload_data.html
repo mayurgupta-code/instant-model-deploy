@@ -1,0 +1,279 @@
+{% extends 'layouts/base.html' %} {% block title %} Profile {% endblock title %}
+{% block content %}
+
+<!-- Page content -->
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- <div class="col-xl-4 order-xl-2">
+      <div class="card card-profile">
+        <img src="/static/assets/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="#">
+                <img src="/static/assets/img/theme/team-4.jpg" class="rounded-circle">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          <div class="d-flex justify-content-between">
+            <a href="#" class="btn btn-sm btn-info  mr-4 ">Connect</a>
+            <a href="#" class="btn btn-sm btn-default float-right">Message</a>
+          </div>
+        </div>
+        <div class="card-body pt-0">
+          <div class="row">
+            <div class="col">
+              <div class="card-profile-stats d-flex justify-content-center">
+                <div>
+                  <span class="heading">22</span>
+                  <span class="description">Friends</span>
+                </div>
+                <div>
+                  <span class="heading">10</span>
+                  <span class="description">Photos</span>
+                </div>
+                <div>
+                  <span class="heading">89</span>
+                  <span class="description">Comments</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <h5 class="h3">
+              {{ request.user.username }}
+            </h5>
+            <div class="h5 font-weight-300">
+              {{ request.user.email }}
+            </div>
+            <div class="h5 mt-4">
+              <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+            </div>
+            <div>
+              <i class="ni education_hat mr-2"></i>University of Computer Science
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="col-xl-8 order-xl-1">
+      <div class="card">
+        <!-- <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Edit profile </h3>
+            </div>
+            <div class="col-4 text-right">
+              <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+            </div>
+          </div>
+        </div> -->
+        <div class="card-body">
+          <form method="post" action="{% url 'home:model_upload' %}">
+            {% csrf_token %}
+            <h6 class="heading-title text-body mb-4">
+              Instant Model Deployment
+            </h6>
+            <hr class="my-4" />
+            <div class="pl-lg-4">
+              <div class="column" style="margin-bottom: 30px">
+                <label for="myfile" style="margin-right: 20px"
+                  >Upload your ML Model:
+                </label>
+                <input type="file" id="model_file" name="model_file" />
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username"
+                      >Model Name</label
+                    >
+                    <input
+                      type=""
+                      id="input-username"
+                      class="form-control"
+                      placeholder="Enter model name"
+                      value=""
+                      name="model_name"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-accuracy"
+                      >Accuracy</label
+                    >
+                    <input
+                      type="number"
+                      id="input-accuracy"
+                      class="form-control"
+                      placeholder="Enter accuracy"
+                      name="accuracy"
+                      step="0.01"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-desc"
+                      >Description</label
+                    >
+                    <input
+                      type="text"
+                      id="input-desc"
+                      class="form-control"
+                      placeholder="Write your model description here"
+                      name="model_desc"
+                      step="0.01"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-numbers"
+                      >No. of inputs</label
+                    >
+                    <input
+                      type="number"
+                      id="input-numbers"
+                      class="form-control"
+                      placeholder="Number of X attributes"
+                      name="input_count"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6" style="align-self: center">
+                  <button type="button" class="btn btn-sm btn-primary" onclick="generateInputs()">
+                    Generate
+                  </button>
+                </div>
+
+                <div id="final-generated-inputs">
+                  <!-- <div class="row generated-inputs">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                          >Name of 1st Input :</label
+                        >
+                        <input
+                          type=""
+                          id="input-username"
+                          class="form-control"
+                          placeholder=""
+                          value=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                          >Type of 1st input :</label
+                        >
+                        <select name="pets" id="pet-select">
+                          <option value="">--Please choose an option--</option>
+                          <option value="number">Integer</option>
+                          <option value="number">Float</option>
+                          <option value="file">File</option>
+                          <option value="image">Image</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username"
+                      >Output Name</label
+                    >
+                    <input
+                      type="text"
+                      id="input-output-name"
+                      class="form-control"
+                      placeholder="Enter output name"
+                      value=""
+                      name="model_output_name"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <button type="submit" class="btn btn-lg btn-primary">
+              Upload ML Model
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "includes/footer.html" %}
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+<script>
+  window.onload = function () {
+    // Scroll down by 20 pixels
+    window.scrollBy(0, 200);
+  };
+</script>
+<script>
+  let generateInputs = function(){
+    console.log("clickedd")
+    const generatedInputDiv = document.getElementsByClassName("generated-inputs")
+    console.log(generatedInputDiv) 
+    let inputNumbers = document.getElementById("input-numbers").value
+    console.log(inputNumbers)
+
+    
+    let finalGenInputs = ``;              
+    for (let i=1; i<=inputNumbers; i++){
+      let inputStr = `<div class="row generated-inputs">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-name"
+                          >Name of Input ${i}:</label
+                        >
+                        <input
+                          type="text"
+                          id="input-name-${i}"
+                          class="form-control"
+                          placeholder=""
+                          value=""
+                          name="input-name-${i}"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-type"
+                          >Type of input ${i}:</label
+                        >
+                        <select name="input-type-${i}" id="inputs-select-${i}">
+                          <option value="">--Please choose an option--</option>
+                          <option value="number">Integer</option>
+                          <option value="number">Float</option>
+                          <option value="text">String</option>
+                          <option value="file">File</option>
+                          <option value="image">Image</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>`;
+          finalGenInputs += inputStr;        
+    }
+    let finalGenInputsDiv = document.getElementById("final-generated-inputs")
+    finalGenInputsDiv.innerHTML = finalGenInputs;
+  }
+</script>
+{% endblock javascripts %}

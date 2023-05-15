@@ -27,16 +27,6 @@ class MLModel(models.Model):
         return self.name
 
 
-
-# ML model input store model
-# name: name of the model input
-# attribute: the attribute of the input
-# description: description of the model input
-# input_type: the type of the input
-# model: the model that the input belongs to
-# created_at: the time when the model input is created
-# updated_at: the time when the model input is updated
-
 class MLModelInput(models.Model):
     INPUT_TYPE_CHOICES = (
         ('text', 'str'),
@@ -56,3 +46,13 @@ class MLModelInput(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# ML model input store model
+# name: name of the model input
+# attribute: the attribute of the input
+# description: description of the model input
+# input_type: the type of the input
+# model: the model that the input belongs to
+# created_at: the time when the model input is created
+# updated_at: the time when the model input is updated        
