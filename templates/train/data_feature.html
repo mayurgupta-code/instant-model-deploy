@@ -71,10 +71,10 @@
           </div>
         </div> -->
         <div class="card-body">
-          <form method="post" action="{% url 'train:train_model' %}">
+          <form method="post" action="{% url 'train:data_feature' %}">
             {% csrf_token %}
             <h6 class="heading-title text-body mb-4">
-              Train Model
+              Data featuring
             </h6>
             <hr class="my-4" />
             <div class="pl-lg-4">
@@ -92,7 +92,7 @@
               </div>
             </div>
             <h6 class="heading-title text-body mb-4">
-              Splitting dataset into Training and Testing
+              Taking Care of missing data
             </h6>
             <hr class="my-4" />
             <div class="pl-lg-4">
@@ -101,26 +101,28 @@
                   <label
                     class="form-control-label"
                     style="display: block"
-                    for="random-state"
-                    >Random State:</label
+                    for="missing-data-strategy"
+                    >Strategy:</label
                   >
-                  <select name="random-state" id="random-state">
+                  <select name="missing-data-strategy" id="missing-data-strategy">
                     <option value="">--Please choose an option--</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
+                    <option value="mean">Mean</option>
+                    <option value="median">Median</option>
+                    <option value="most_frequent">Most Frequent</option>
+                    <option value="constant">Constant</option>
                   </select>
                 </div>
                 <div class="column" style="margin-bottom: 30px">
-                  <label for="test-data-size" style="margin-right: 20px"
-                    >Test Data Size:
+                  <label for="missing-constant-value" style="margin-right: 20px"
+                    >Missing constant value:
                   </label>
-                  <input type="float" id="test-data-size" name="test-data-size" placeholder="in fractions (=0.2)" />
+                  <input type="float" id="missing-constant-value" name="missing-constant-value" placeholder="if choosen constant" />
                 </div>
               </div>
             </div>
 
             <h6 class="heading-title text-body mb-4">
-              Feature Scaling
+              Encoding Inpendent Data
             </h6>
             <hr class="my-4" />
             <div class="pl-lg-4">
@@ -129,20 +131,20 @@
                   <label
                     class="form-control-label"
                     style="display: block"
-                    for="standard-scaler"
-                    >Standard Scaler:</label
+                    for="remainder-value"
+                    >Remainder:</label
                   >
-                  <select name="standard-scaler" id="standard-scaler">
+                  <select name="remainder" id="remainder-value">
                     <option value="">--Please choose an option--</option>
-                    <option value="True">True</option>
-                    <option value="False">False</option>
+                    <option value="drop">Drop</option>
+                    <option value="passthrough">Passthrough</option>
                   </select>
                 </div>
               </div>
             </div>
 
             <h6 class="heading-title text-body mb-4">
-              Machine Learning Model Architecture
+              Encoding Dependent Data
             </h6>
             <hr class="my-4" />
             <div class="pl-lg-4">
@@ -151,17 +153,13 @@
                   <label
                     class="form-control-label"
                     style="display: block"
-                    for="ml-architecture"
-                    >Select Architecture:</label
+                    for="labelencoder-value"
+                    >Label Encoder:</label
                   >
-                  <select name="ml-architecture" id="ml-architecture">
+                  <select name="labelencoder" id="labelencoder-value">
                     <option value="">--Please choose an option--</option>
-                    <option value="slr">Simple Linear Regression</option>
-                    <option value="mlr">Multiple Linear Regression</option>
-                    <option value="pr">Polynomial Regression</option>
-                    <option value="svr">Support Vector Regression</option>
-                    <option value="dtr">Decision Tree Regression</option>
-                    <option value="rfr">Random Forest Regression</option>
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
                   </select>
                 </div>
               </div>
@@ -213,31 +211,6 @@
               Generate Featured Data
             </button>
           </form>
-          {% if accuracy %}
-          <div
-            style="
-              background-color: #30bb7a;
-              padding: 10px 15px 5px 15px;
-              border-radius: 5px;
-              display: block;
-              margin-top: 10px;
-            "
-            id="prediction-result"
-          >
-            <h6
-              class="heading-title text-body mb-2"
-              style="color: white !important"
-            >
-              Accuracy of build model:
-            </h6>
-            <h2
-              class="heading-title text-body mb-2"
-              style="font-size: 40px; color: white !important"
-            >
-              {{accuracy}}</span>
-            </h2>
-          </div>
-          {% endif %}
         </div>
       </div>
     </div>

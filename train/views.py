@@ -20,8 +20,8 @@ def upload_data(request):
 
 
 
-def train_model(request):
-    rawdata = UploadedData.objects.filter(user=request.user)
+def data_feature(request):
+    raw_data = UploadedData.objects.filter(user=request.user)
     if request.method == "POST": 
         print("request.POST", request.POST)
 
@@ -88,4 +88,57 @@ def train_model(request):
         # print(X_train)
 
     # return HttpResponse(f"Train model {dataset}")
-    return render(request, "train/train_model.html", {"rawdata": rawdata})
+    return render(request, "train/data_feature.html", {"rawdata": raw_data})
+
+
+def train_model(request):
+    raw_data = UploadedData.objects.filter(user=request.user)
+    if request.method == "POST":
+        print("request.POST", request.POST)
+        rawdata = request.POST.get('rawdata')
+        dataset_X = pd.read_csv(f'media/{rawdata}-x.csv')
+        dataset_y = pd.read_csv(f'media/{rawdata}-y.csv')
+
+        ## split dataset into x and y
+        X = dataset_X.iloc[:, :].values
+        y = dataset_y.iloc[:, -1].values
+
+        print(X)
+        print(y)
+
+
+        ## Splitting the dataset into the Training set and Test set
+        random_state = int(request.POST.get('random-state'))
+        test_data_size = float(request.POST.get('test-data-size'))
+        from sklearn.model_selection import train_test_split
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = test_data_size, random_state = random_state)
+        # print(X_train)
+
+        ## Feature Scaling
+        std_scaler = bool(request.POST.get('standard-scaler'))
+        print(std_scaler)
+        from sklearn.preprocessing import StandardScaler
+        if std_scaler:
+            print("std_scaler")
+            sc = StandardScaler()
+            X_train = sc.fit_transform(X_train)
+            X_test = sc.transform(X_test)
+        print(X_train)
+
+        ## applying algorithm
+        architecture = request.POST.get('ml-architecture')
+
+        if architecture == "slr":
+            from sklearn.linear_model import LinearRegression
+            regressor = LinearRegression()
+            regressor.fit(X_train, y_train)
+
+            y_pred = regressor.predict(X_test)
+            print("y_pred", y_pred)
+
+            accuracy = regressor.score(X_test, y_test)
+            print("accuracy", accuracy)
+        return render(request, "train/train_model.html", {"rawdata": raw_data, "accuracy": accuracy})
+        
+
+    return render(request, "train/train_model.html", {"rawdata": raw_data})
