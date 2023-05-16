@@ -71,150 +71,22 @@
           </div>
         </div> -->
         <div class="card-body">
-          <form method="post" action="{% url 'home:model_upload' %}">
+          <form method="post" action="{% url 'train:train_model' %}">
             {% csrf_token %}
             <h6 class="heading-title text-body mb-4">
-              Data featuring and Model Training
+              Data featuring
             </h6>
             <hr class="my-4" />
             <div class="pl-lg-4">
-              <!-- <div class="column" style="margin-bottom: 30px">
-                <label for="myfile" style="margin-right: 20px"
-                  >Upload your ML Model:
-                </label>
-                <input type="file" id="model_file" name="model_file" />
-             </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-username"
-                      >Model Name</label
-                    >
-                    <input
-                      type=""
-                      id="input-username"
-                      class="form-control"
-                      placeholder="Enter model name"
-                      value=""
-                      name="model_name"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-accuracy"
-                      >Accuracy</label
-                    >
-                    <input
-                      type="number"
-                      id="input-accuracy"
-                      class="form-control"
-                      placeholder="Enter accuracy"
-                      name="accuracy"
-                      step="0.01"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-lg-12">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-desc"
-                      >Description</label
-                    >
-                    <input
-                      type="text"
-                      id="input-desc"
-                      class="form-control"
-                      placeholder="Write your model description here"
-                      name="model_desc"
-                      step="0.01"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-numbers"
-                      >No. of inputs</label
-                    >
-                    <input
-                      type="number"
-                      id="input-numbers"
-                      class="form-control"
-                      placeholder="Number of X attributes"
-                      name="input_count"
-                    />
-                  </div>
-                </div>
-                <div class="col-lg-6" style="align-self: center">
-                  <button type="button" class="btn btn-sm btn-primary" onclick="generateInputs()">
-                    Generate
-                  </button>
-                </div>
-
-                <div id="final-generated-inputs">
-                   <div class="row generated-inputs">
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-username"
-                          >Name of 1st Input :</label
-                        >
-                        <input
-                          type=""
-                          id="input-username"
-                          class="form-control"
-                          placeholder=""
-                          value=""
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-username"
-                          >Type of 1st input :</label
-                        >
-                        <select name="pets" id="pet-select">
-                          <option value="">--Please choose an option--</option>
-                          <option value="number">Integer</option>
-                          <option value="number">Float</option>
-                          <option value="file">File</option>
-                          <option value="image">Image</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row"> 
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-username"
-                      >Output Name</label
-                    >
-                    <input
-                      type="text"
-                      id="input-output-name"
-                      class="form-control"
-                      placeholder="Enter output name"
-                      value=""
-                      name="model_output_name"
-                    />
-                  </div>
-                </div>
-              </div> -->
-
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label class="form-control-label" for="input-username"
-                    >Select dataset for training :</label
-                  >
-                  <select name="pets" id="pet-select">
+                  <label class="form-control-label" for="rawdata-select">
+                    Select dataset for training :</label>
+                  <select name="rawdata" id="rawdata-select">
                     <option value="">--Please choose an option--</option>
-                    <option value="number">Integer</option>
-                    <option value="number">Float</option>
-                    <option value="file">File</option>
-                    <option value="image">Image</option>
+                    {% for rawd in rawdata %}
+                    <option value="{{rawd.data_file}}">{{rawd.name}}</option>
+                    {% endfor %}
                   </select>
                 </div>
               </div>
@@ -229,16 +101,22 @@
                   <label
                     class="form-control-label"
                     style="display: block"
-                    for="input-username"
+                    for="missing-data-strategy"
                     >Strategy:</label
                   >
-                  <select name="pets" id="pet-select">
+                  <select name="missing-data-strategy" id="missing-data-strategy">
                     <option value="">--Please choose an option--</option>
-                    <option value="number"></option>
-                    <option value="number">Float</option>
-                    <option value="file">File</option>
-                    <option value="image">Image</option>
+                    <option value="mean">Mean</option>
+                    <option value="median">Median</option>
+                    <option value="most_frequent">Most Frequent</option>
+                    <option value="constant">Constant</option>
                   </select>
+                </div>
+                <div class="column" style="margin-bottom: 30px">
+                  <label for="missing-constant-value" style="margin-right: 20px"
+                    >Missing constant value:
+                  </label>
+                  <input type="float" id="missing-constant-value" name="missing-constant-value" placeholder="if choosen constant" />
                 </div>
               </div>
             </div>
@@ -253,15 +131,13 @@
                   <label
                     class="form-control-label"
                     style="display: block"
-                    for="input-username"
+                    for="remainder-value"
                     >Remainder:</label
                   >
-                  <select name="pets" id="pet-select">
+                  <select name="remainder" id="remainder-value">
                     <option value="">--Please choose an option--</option>
-                    <option value="number"></option>
-                    <option value="number">Float</option>
-                    <option value="file">File</option>
-                    <option value="image">Image</option>
+                    <option value="drop">Drop</option>
+                    <option value="passthrough">Passthrough</option>
                   </select>
                 </div>
               </div>
@@ -277,21 +153,19 @@
                   <label
                     class="form-control-label"
                     style="display: block"
-                    for="input-username"
-                    >labelEncoder:</label
+                    for="labelencoder-value"
+                    >Label Encoder:</label
                   >
-                  <select name="pets" id="pet-select">
+                  <select name="labelencoder" id="labelencoder-value">
                     <option value="">--Please choose an option--</option>
-                    <option value="number"></option>
-                    <option value="number">Float</option>
-                    <option value="file">File</option>
-                    <option value="image">Image</option>
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
                   </select>
                 </div>
               </div>
             </div>
 
-            <h6 class="heading-title text-body mb-4">
+            {% comment %} <h6 class="heading-title text-body mb-4">
               Spliting dataset into training set and test set
             </h6>
             <hr class="my-4" />
@@ -330,11 +204,11 @@
                   </select>
                 </div>
               </div>
-            </div>
+            </div> {% endcomment %}
 
             <hr class="my-4" />
             <button type="submit" class="btn btn-lg btn-primary">
-              Train Model
+              Generate Featured Data
             </button>
           </form>
         </div>
@@ -342,7 +216,7 @@
     </div>
   </div>
 
-  {% include "includes/footer.html" %}
+{% include "includes/footer.html" %}
 </div>
 
 {% endblock content %}
