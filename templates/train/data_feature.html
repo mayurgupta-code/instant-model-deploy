@@ -211,6 +211,31 @@
               Generate Featured Data
             </button>
           </form>
+          {% if message %}
+          <div
+            style="
+              background-color: #30bb7a;
+              padding: 10px 15px 5px 15px;
+              border-radius: 5px;
+              display: block;
+              margin-top: 10px;
+            "
+            id="prediction-result"
+          >
+            <h6
+              class="heading-title text-body mb-2"
+              style="color: white !important"
+            >
+              {{message}}
+            </h6>
+            <h2
+              class="heading-title text-body mb-2"
+              style="font-size: 40px; color: white !important"
+            >
+            <a href="{% url 'train:train_model' %}">Go to Build Model</a></span></span>
+            </h2>
+          </div>
+          {% endif %}
         </div>
       </div>
     </div>
