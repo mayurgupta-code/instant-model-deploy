@@ -104,6 +104,81 @@
               </div>
             </div>
           </div>
+
+          <h1 style="color: white; font-size: 30px;">
+            <b>Train New Model</b>
+          </h2>
+          <hr>
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body" style="height: 200px;">
+                  <div class="row">
+                    <div class="col">
+                      <!-- <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5> -->
+                      <a href="{% url 'train:upload_data' %}">
+                        <span class="h2 font-weight-bold mb-0">Upload New Dataset</span>
+                      </a>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <i class="ni ni-chart-bar-32"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body" style="height: 200px;">
+                  <div class="row">
+                    <div class="col">
+                      <!-- <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5> -->
+                      <a href="{% url 'train:data_feature' %}">
+                        <span class="h2 font-weight-bold mb-0">Apply Data Engineering</span>
+                      </a>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <i class="ni ni-chart-bar-32"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body" style="height: 200px;">
+                  <div class="row">
+                    <div class="col">
+                      <!-- <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5> -->
+                      <a href="{% url 'train:train_model' %}">
+                        <span class="h2 font-weight-bold mb-0">Train Model</span>
+                      </a>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <i class="ni ni-chart-bar-32"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>

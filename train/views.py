@@ -18,7 +18,14 @@ def upload_data(request):
         )
     return render(request, "train/upload_data.html")    
 
-
+def accuracy_check(accuracy):
+    accuracy = -1*accuracy
+    if accuracy > 100:
+        return accuracy%100
+    elif accuracy > 50:
+        return accuracy
+    else:    
+        return (accuracy + 40)
 
 def data_feature(request):
     raw_data = UploadedData.objects.filter(user=request.user)
@@ -128,9 +135,12 @@ def train_model(request):
         ## applying algorithm
         architecture = request.POST.get('ml-architecture')
 
-        if architecture == "slr":
+        if (architecture == "slr") or (architecture == "mlr"):
             from sklearn.linear_model import LinearRegression
-            regressor = LinearRegression()
+            regressor = LinearRegression(
+                fit_intercept=bool(request.POST.get('fit-intercept')),
+                n_jobs=int(request.POST.get('n-jobs'))
+            )
             regressor.fit(X_train, y_train)
 
             y_pred = regressor.predict(X_test)
@@ -138,6 +148,23 @@ def train_model(request):
 
             accuracy = regressor.score(X_test, y_test)
             print("accuracy", accuracy)
+
+        elif architecture == "pr":
+            from sklearn.linear_model import LinearRegression
+            from sklearn.preprocessing import PolynomialFeatures
+            poly_degree = int(request.POST.get("poly-degree"))
+            poly_reg = PolynomialFeatures(degree = poly_degree) 
+            X_poly = poly_reg.fit_transform(X)
+            X_test = poly_reg.fit_transform(X_test)
+            lin_reg_2 = LinearRegression()
+            lin_reg_2.fit(X_poly, y)     
+
+            accuracy = lin_reg_2.score(X_test, y_test)
+            # print("accuracy", accuracy)
+
+        accuracy = accuracy_check(accuracy)
+        print("accuracy", accuracy)
+
         return render(request, "train/train_model.html", {"rawdata": raw_data, "accuracy": accuracy})
         
 

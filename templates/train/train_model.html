@@ -59,7 +59,7 @@
       </div>
     </div> -->
     <div class="col-xl-8 order-xl-1">
-      <div class="card" style="">
+      <div class="card">
         <!-- <div class="card-header">
           <div class="row align-items-center">
             <div class="col-8">
@@ -166,6 +166,62 @@
                 </div>
               </div>
             </div>
+
+            <h6 class="heading-title text-body mb-4">
+              Hyper-parameters of Linear or Multiple Regression
+            </h6>
+            <hr class="my-4" />
+            <div class="pl-lg-4">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label
+                    class="form-control-label"
+                    style="display: block"
+                    for="fit-intercept"
+                    >Fit intercept:</label
+                  >
+                  <select name="fit-intercept" id="fit-intercept">
+                    <option value="">--Please choose an option--</option>
+                    <option value="True">True</option>
+                    <option value="False">False</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="pl-lg-4">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label
+                    class="form-control-label"
+                    style="display: block"
+                    for="n-jobs"
+                    >n-jobs:</label
+                  >
+                  <input type="integer" id="n-jobs" name="n-jobs" placeholder="-1 for maximum" />
+                </div>
+              </div>
+            </div>
+
+
+            <h6 class="heading-title text-body mb-4">
+              Hyper-parameters of Polynomial Regression
+            </h6>
+            <hr class="my-4" />
+            <div class="pl-lg-4">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label
+                    class="form-control-label"
+                    style="display: block"
+                    for="poly-degree"
+                    >Polynomial Degree:</label
+                  >
+                  <input type="integer" id="poly-degree" name="poly-degree" placeholder="" />
+                </div>
+              </div>
+            </div>
+
 
             {% comment %} <h6 class="heading-title text-body mb-4">
               Spliting dataset into training set and test set
