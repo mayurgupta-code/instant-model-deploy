@@ -2,11 +2,23 @@ from django.shortcuts import render, HttpResponse
 import numpy as np
 # import matplotlib.pyplot as plt
 import pandas as pd
+from .models import UploadedData
 
 # Create your views here.
 
 def upload_data(request):
-    return render(request, "train/upload_data.html")
+    if request.method == "POST":
+        print("request.POST", request.POST)
+        print("request.FILES", request.FILES)
+        data_file = request.FILES.get('data_file')
+        raw_data = UploadedData.objects.create(
+            name=data_file.name,
+            data_file=data_file,
+            user=request.user
+        )
+    return render(request, "train/upload_data.html")    
+
+
 
 def train_model(request): 
     dataset = pd.read_csv('media/train_data/Data.csv')
@@ -49,6 +61,6 @@ def train_model(request):
     X_test = sc.transform(X_test)
 
     print(X_train)
-    
-    return HttpResponse(f"Train model {dataset}")
-    # return render(request, "train/train_model.html")
+
+    # return HttpResponse(f"Train model {dataset}")
+    return render(request, "train/train_model.html")
